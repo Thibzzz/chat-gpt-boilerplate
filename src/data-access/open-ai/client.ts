@@ -8,6 +8,18 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+interface createCodeCompletionRequest {
+  model?: string;
+  prompt?: string;
+  temperature?: number;
+  n?: number;
+  max_tokens?: number;
+  top_p?: number;
+  frequency_penalty?: number;
+  presence_penalty?: number;
+  stop?: string | string[];
+}
+
 interface createCompletionRequest {
   prompt?: string;
   model?: string;
@@ -78,8 +90,8 @@ class OpenAI {
    * Creates a text from a prompt : https://beta.openai.com/docs/guides/completion
    * NOTE : you can swap the model to use a different one, you could use a code completion model for example.
    * Just be aware that the prompt will need to be formatted correctly and the answer will be formatted as well (it might break your code)
-   * @param params 
-   * @returns 
+   * @param params
+   * @returns
    */
   public async askSomething(params: createCompletionRequest) {
     this.resetPrompt();
@@ -105,8 +117,8 @@ class OpenAI {
 
   /**
    * Creates an image from a prompt : https://beta.openai.com/docs/guides/images/introduction
-   * @param params 
-   * @returns 
+   * @param params
+   * @returns
    */
   public async createImage(params: directImageRequest) {
     this.resetPrompt();
@@ -129,8 +141,41 @@ class OpenAI {
     return response;
   }
 
-  public async createCode(params: createCompletionRequest) {
-    return true
+  /**
+   * Creates a code snippet from a prompt : https://beta.openai.com/docs/guides/code-completion/introduction
+   * @param params
+   * @returns
+   */
+  /**
+  model="code-davinci-002",
+  prompt="You: How do I combine arrays?\nJavaScript chatbot: You can use the concat() method.\nYou: How do you make an alert appear after 10 seconds?\nJavaScript chatbot",
+  temperature=0,
+  max_tokens=60,
+  top_p=1.0,
+  frequency_penalty=0.5,
+  presence_penalty=0.0,
+  stop=["You:"]
+    */
+  public async createCode(params: createCodeCompletionRequest) {
+    this.resetPrompt();
+    let prompt: any = params.prompt || false;
+    if (!prompt) {
+      await this.__createPrompt();
+      prompt = this.prompt;
+      process.stdout.write(String(`==> Ask ? ${this.prompt} \n`));
+    }
+    const queryModel = {
+      model: params.model ? params.model : "code-davinci-002",
+      prompt: prompt,
+      n: params.n ? params.n : 1,
+      temperature: params.temperature ? params.temperature : 0,
+      max_tokens: params.max_tokens ? params.max_tokens : 1000,
+      frequency_penalty: params.frequency_penalty ? params.frequency_penalty : 0.5,
+      presence_penalty: params.presence_penalty ? params.presence_penalty : 0.0,
+      stop: params.stop ? params.stop : ["You:"],
+    };
+    const response = await this.openai.createCompletion(queryModel);
+    return response;
   }
 
   /**
@@ -139,14 +184,18 @@ class OpenAI {
    * @param pathstring - path to save the image to, default : "./output"
    * @param data  - base64 encoded image, default : createImageReponseObject.data.data[0].b64_json
    */
-  public async saveImageToPath(fileName : string, pathstring: string, data: any) {
+  public async saveImageToPath(
+    fileName: string,
+    pathstring: string,
+    data: any
+  ) {
     let nameString = fileName || "image-gpt3";
     let pathString = pathstring || "./output";
     const timestampedName = `${nameString}-${Date.now()}.png`;
-    const fullPath = `${pathString}/${timestampedName}`
-    await writeFileToPath(timestampedName, pathString, data)
-    process.stdout.write(`Image saved to : ${fullPath} \n`)
-    return fullPath
+    const fullPath = `${pathString}/${timestampedName}`;
+    await writeFileToPath(timestampedName, pathString, data);
+    process.stdout.write(`Image saved to : ${fullPath} \n`);
+    return fullPath;
   }
 }
 
