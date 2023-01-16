@@ -38,10 +38,10 @@ const main = async () => {
    * 9. Use a stop sequence of "/* Command:" to give an opinionated answer on the code complexion (useful to target a particular language / environment).
    * Please also consider using a code snippet in your prompt. see example below.
    * In the end, testing proves you're better off asking a question to GPT-3 that set contrains specific to your use case and your question right away.
-   * So for example, "Create a javascript program written for chrome that clears the page first ..... (your question here)" will create then openai javascript sandbox.
-   * Then you can ask it to do whatever you want. It super opinionated and will give you the best results.
+   * So for example, "Create a javascript program written for chrome that clears the page first ..... (your question here)" will create then openai javascript sandbox (https://beta.openai.com/codex-javascript-sandbox).
+   * Then you can ask it to do whatever you want. It super opinionated to give you the best results. It's like pocket sand + AI but it's not "raw" AI yet.
    * It's not magic *yet* but it's getting there.
-   * Honestly, I'm not sure if it's worth it to use this API for code generation. It's not that good yet.
+   * Honestly, I'm not sure if it's worth it to use this API for code generation. It's not that good yet. Just build super oriented prompts with text-davinci-003 and you'll be fine.
    */
   // const codeReponse = await sdk.createCode({
   //   max_tokens: 2000,
