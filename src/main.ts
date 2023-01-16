@@ -26,26 +26,27 @@ const main = async () => {
   /**
    * Exemple : Generate a code complete from GPT-3
    * INFO : https://beta.openai.com/docs/guides/code/best-practices
-   * NOTE : this is heavily reliant on the prompt you give to GPT-3, it will try to complete the code you give it.
-   * However it will not work if the prompt is not formatted correctly or if you mix up languages.
-   * I highly recommand that you use comments anytime you want to give a prompt to GPT-3.
+   * NOTE : 
+   * 1. this is heavily reliant on the prompt you give to GPT-3, it will try to complete the code you give it.
+   * 2. Don't mix up languages
+   * 3. Don't use a prompt that is too long, it will break the code completion.
+   * 4. Use one liners in comments, multi line comments will break the code completion.
+   * 5. Use a code snippet in your prompt, it will help GPT-3 to understand what you are asking for.
+   * 6. Use a temperature of 0, it will give you the best results.
+   * 7. Use a max_tokens of 2000, it will give you the best results.
+   * 8. Use a model of "code-davinci-002" or "text-davinci-003" it will give you the best results (16/1/2022).
+   * 9. Use a stop sequence of "/* Command:" to give an opinionated answer on the code complexion (useful to target a particular language / environment).
    * Please also consider using a code snippet in your prompt. see example below.
+   * In the end, testing proves you're better off asking a question to GPT-3 that set contrains specific to your use case and your question right away.
+   * So for example, "Create a javascript program written for chrome that clears the page first ..... (your question here)" will create then openai javascript sandbox.
+   * Then you can ask it to do whatever you want. It super opinionated and will give you the best results.
+   * It's not magic *yet* but it's getting there.
+   * Honestly, I'm not sure if it's worth it to use this API for code generation. It's not that good yet.
    */
   // const codeReponse = await sdk.createCode({
-  //   max_tokens: 1000,
+  //   max_tokens: 2000,
   //   temperature: 0, // NOTE : 0 is the best temperature for code completion. Period.
-  //   prompt: `
-  //   // Write me a unit test for this function
-  //   import { promisify } from "util"
-  //   import { writeFile } from "fs";
-  //   import path from "path";
-
-  //   const writeFileAsync = promisify(writeFile);
-
-  //   const writeFileToPath = async (filename:string, filePath: string, data: any) => {
-  //     await writeFileAsync(path.resolve(filePath, filename), data, "base64"); 
-  //   }
-  //   `
+  //   prompt: ``,
   // });
   // console.group(`Open AI query ${codeReponse.status} ${codeReponse.statusText}`);
   // console.table(codeReponse.data.usage);

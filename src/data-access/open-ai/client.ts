@@ -166,13 +166,10 @@ class OpenAI {
     }
     const queryModel = {
       model: params.model ? params.model : "code-davinci-002",
-      prompt: prompt,
-      n: params.n ? params.n : 1,
+      prompt: `/* ${prompt} */`,
       temperature: params.temperature ? params.temperature : 0,
       max_tokens: params.max_tokens ? params.max_tokens : 1000,
-      frequency_penalty: params.frequency_penalty ? params.frequency_penalty : 0.5,
-      presence_penalty: params.presence_penalty ? params.presence_penalty : 0.0,
-      stop: params.stop ? params.stop : ["You:"],
+      stop: params.stop ? params.stop : ["/* Command:"],
     };
     const response = await this.openai.createCompletion(queryModel);
     return response;
