@@ -1,4 +1,5 @@
 import { Configuration, CreateImageRequest, OpenAIApi } from "openai";
+import { writeFileToPath } from "./../../utils/files/index.js";
 import dotenv from "dotenv";
 import inquirer from "inquirer";
 dotenv.config();
@@ -14,7 +15,7 @@ interface createCompletionRequest {
   max_tokens?: number;
 }
 
-interface directImageRequest  {
+interface directImageRequest {
   prompt?: string;
   n?: number;
   size?: string;
@@ -30,7 +31,7 @@ interface directImageRequest  {
 class OpenAI {
   private openai: OpenAIApi;
   private imageSizes: any;
-  private prompt : string | undefined;
+  private prompt: string | undefined;
   constructor() {
     this.openai = new OpenAIApi(configuration);
     this.prompt = undefined;
@@ -72,9 +73,17 @@ class OpenAI {
         }
       });
   }
+
+  /**
+   * Creates a text from a prompt : https://beta.openai.com/docs/guides/completion
+   * NOTE : you can swap the model to use a different one, you could use a code completion model for example.
+   * Just be aware that the prompt will need to be formatted correctly and the answer will be formatted as well (it might break your code)
+   * @param params 
+   * @returns 
+   */
   public async askSomething(params: createCompletionRequest) {
-    this.resetPrompt()
-    let prompt : any = params.prompt;
+    this.resetPrompt();
+    let prompt: any = params.prompt;
 
     // NOTE : this is a simple prompt to ask the user for a question to ask GPT-3 | https://www.npmjs.com/package/inquirer
     if (typeof prompt !== "string") {
@@ -94,9 +103,14 @@ class OpenAI {
     return response;
   }
 
+  /**
+   * Creates an image from a prompt : https://beta.openai.com/docs/guides/images/introduction
+   * @param params 
+   * @returns 
+   */
   public async createImage(params: directImageRequest) {
-    this.resetPrompt()
-    let prompt : any = params.prompt || false;
+    this.resetPrompt();
+    let prompt: any = params.prompt || false;
 
     // NOTE : this is a simple prompt to ask the user for a question to ask GPT-3 | https://www.npmjs.com/package/inquirer
     if (!prompt) {
@@ -112,7 +126,27 @@ class OpenAI {
     };
 
     const response = await this.openai.createImage(queryModel);
-    return response
+    return response;
+  }
+
+  public async createCode(params: createCompletionRequest) {
+    return true
+  }
+
+  /**
+   * Save a base64 encoded image to a file, needs to be a response from openai.createImage (we'll call it createImageReponseObject)
+   * @param fileName - name of the file, default : "image-gpt3"
+   * @param pathstring - path to save the image to, default : "./output"
+   * @param data  - base64 encoded image, default : createImageReponseObject.data.data[0].b64_json
+   */
+  public async saveImageToPath(fileName : string, pathstring: string, data: any) {
+    let nameString = fileName || "image-gpt3";
+    let pathString = pathstring || "./output";
+    const timestampedName = `${nameString}-${Date.now()}.png`;
+    const fullPath = `${pathString}/${timestampedName}`
+    await writeFileToPath(timestampedName, pathString, data)
+    process.stdout.write(`Image saved to : ${fullPath} \n`)
+    return fullPath
   }
 }
 
