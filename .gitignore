@@ -1,0 +1,10 @@
+*/node_modules/
+node_modules/
+node_modules/**
+dist/
+dist/**
+dist
+.env
+output/*
+!output/note.md
+yarn-error.log
