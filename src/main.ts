@@ -14,7 +14,9 @@ const main = async () => {
     model: "text-davinci-003",
     temperature: 0.5,
   });
-  console.group(`Open AI query ${textResponse.status} ${textResponse.statusText}`);
+  console.group(
+    `Open AI query ${textResponse.status} ${textResponse.statusText}`
+  );
   console.table(textResponse.data.usage);
   process.stdout.write(
     `IA answer status (stop is good) : ${textResponse.data.choices[0].finish_reason} \n` ||
@@ -26,7 +28,7 @@ const main = async () => {
   /**
    * Exemple : Generate a code complete from GPT-3
    * INFO : https://beta.openai.com/docs/guides/code/best-practices
-   * NOTE : 
+   * NOTE :
    * 1. this is heavily reliant on the prompt you give to GPT-3, it will try to complete the code you give it.
    * 2. Don't mix up languages
    * 3. Don't use a prompt that is too long, it will break the code completion.
@@ -42,6 +44,8 @@ const main = async () => {
    * Then you can ask it to do whatever you want. It super opinionated to give you the best results. It's like pocket sand + AI but it's not "raw" AI yet.
    * It's not magic *yet* but it's getting there.
    * Honestly, I'm not sure if it's worth it to use this API for code generation. It's not that good yet. Just build super oriented prompts with text-davinci-003 and you'll be fine.
+   * Caveats: this codex is actively used to produce malware, so while it's not easy to get a hold of, it's not impossible. It seems super strong once you're good at it 
+   * Source : https://arstechnica.com/information-technology/2023/01/chatgpt-is-enabling-script-kiddies-to-write-functional-malware/
    */
   // const codeReponse = await sdk.createCode({
   //   max_tokens: 2000,
