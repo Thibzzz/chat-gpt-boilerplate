@@ -37,10 +37,12 @@ If you want to do code completion, a serious reminder from Open AI documents, bl
 1. You can generate code, however, results are heavily influenced on which language you work with.
 2. It's also influenced by **your** overall cognitive ability to break down a problem in smaller bits with "one liners" since the overall memory at your disposal is 14Kb.
 
-You'll be fine if you treat your AI just like you would treat a super junior developper that has mad learning skills and the whole of stack overflow / internal inside his head.
-It will do deduction in a way you can't compete with it but it won't outsmart you because it can't do it if you don't anchor his search in a contextualized problem (and you wouldn't in its place). It all boils down to how good is your briefing, just like in real life with real people.
+You'll be fine if you treat your AI just like you would treat a super junior developper that has mad learning skills and the whole of stack overflow inside his head.
+It will do deduction in a way you can't compete with but it won't outsmart you, because it can't do it. 
+If you don't anchor your prompt in a contextualized problem, it won't guess (and you couldn't either). 
+It all boils down to how good is your briefing, just like in real life with real people.
 
-Overall I think it's a pretty good tool for a PM / PO / Scrum master / Project manager to train himself in write concise User stories.
+Overall I think it's a pretty good tool for a PM / PO / Scrum master / Project manager to train himself in writing concise User stories.
 Set a pre-defined outcome and try to reach only via OpenAI queries, your ability to break down a problem clearly will be thoroughly tested.
 
 So AI won't replace you as a coder 'yet' because It can't tell you (or "a customer") that you/he suck(s) at explaining things, in a gentle fashion, and groom you/him into giving out a good brief / User story that can be implemented into a software solution.
