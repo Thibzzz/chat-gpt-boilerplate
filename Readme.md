@@ -46,3 +46,11 @@ Overall I think it's a pretty good tool for a PM / PO / Scrum master / Project m
 Set a pre-defined outcome and try to reach only via OpenAI queries, your ability to break down a problem clearly will be thoroughly tested.
 
 So AI won't replace you as a coder 'yet' because It can't tell you (or "a customer") that you/he suck(s) at explaining things, in a gentle fashion, and groom you/him into giving out a good brief / User story that can be implemented into a software solution.
+
+## Possible next step from boilerplate.
+
+* It could easily become opinionated and do a better job at target a coding environment. Exemple : answer this in a python context, make this program for nodejs, make a function that runs in a browser environment...
+* It could start multiple "User story quality" games that evaluates a player's ability to write prompt intelligible to AI. It's like training humans to use AI instead of training AIs to understand humans in a way.
+* It must simplify mangement of layered queries that depend up on each other to build a solution. If a solution is a set of commands, then the state management of this set must be solved by this boilerplate. You must be able to do CRUD operations on each sucessive commands without breaking the house of cards.
+* We could build a UI in the browser (nodemon / docker ?).
+* We could build a native UI (Electron ? / Flutter ? / Deno ?)
