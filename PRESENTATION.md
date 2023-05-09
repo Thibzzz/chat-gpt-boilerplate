@@ -49,7 +49,7 @@ There are in my opinion 3 documents that everyone must see / read :
 
 * If you're gonna build a crunch bot, you're building a "free agent" that has control over code. Don't release it on a direct production access.
 * ChatGPT tend to write unsafe code.
-* Models and APIs are changing a lot. Lookout for competition (LLVMs). 
+* Models and APIs are changing a lot. Lookout for competition (LLAMA). 
 
 # HOW TO Github Copilot
 
