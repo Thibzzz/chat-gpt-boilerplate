@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>Bouncing Ball Game</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+      }
+
+      #ball {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        border-radius: 50%;
+        background-color: #ff0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="ball"></div>
+    <script>
+      // Get the ball element
+      const ball = document.getElementById('ball');
+
+      // Set the initial position
+      let x = 0;
+      let y = 0;
+
+      // Set the speed
+      let speedX = 5;
+      let speedY = 5;
+
+      // Set the boundaries
+      const maxX = window.innerWidth - 20;
+      const maxY = window.innerHeight - 20;
+
+      // Set the ball to the initial position
+      ball.style.left = x + 'px';
+      ball.style.top = y + 'px';
+
+      // Function to move the ball
+      const moveBall = () => {
+        // Change the position
+        x += speedX;
+        y += speedY;
+
+        // Check the boundaries
+        if (x >= maxX) {
+          speedX *= -1;
+          x = maxX;
+        } else if (x <= 0) {
+          speedX *= -1;
+          x = 0;
+        }
+
+        if (y >= maxY) {
+          speedY *= -1;
+          y = maxY;
+        } else if (y <= 0) {
+          speedY *= -1;
+          y = 0;
+        }
+
+        // Set the ball to the new position
+        ball.style.left = x + 'px';
+        ball.style.top = y + 'px';
+
+        // Call moveBall() every 10 milliseconds
+        setTimeout(moveBall, 10);
+      };
+
+      // Call moveBall() for the first time
+      moveBall();
+
+      // Function to handle the click event
+      const handleClick = (e) => {
+        // Get the mouse position
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        // Check if the mouse is over the ball
+        if (mouseX >= x && mouseX <= x + 20 && mouseY >= y && mouseY <= y + 20) {
+          // Set the speed
+          speedX = 0;
+          speedY = 5;
+
+          // Set the ball to the bottom of the screen
+          ball.style.left = x + 'px';
+          ball.style.top = maxY + 'px';
+        }
+      };
+
+      // Add the click event listener
+      ball.addEventListener('mouseEnter', handleClick);
+    </script>
+  </body>
+</html>
