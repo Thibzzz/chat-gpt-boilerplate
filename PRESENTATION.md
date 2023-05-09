@@ -65,7 +65,7 @@ We have github enterprise with Github Copilot included. You just need to connect
 
 * Convert prompt to code
 * Document code
-* Create unit tests (depends heavily on your test framework)
+* Create unit tests (depends heavily on your test **framework**)
 
 ## Best pratice
 
