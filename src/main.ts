@@ -12,7 +12,7 @@ const main = async () => {
    */
   const textResponse = await sdk.askSomething({
     model: "text-davinci-003",
-    temperature: 0.5,
+    temperature: 0.8,
   });
   console.group(
     `Open AI query ${textResponse.status} ${textResponse.statusText}`
